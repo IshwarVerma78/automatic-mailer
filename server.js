@@ -42,8 +42,8 @@ app.post('/send', (req, res) => {
 
             <p>Best regards,<br>
             Ishwar Verma<br>
-            8168099190<br>
-            https://www.linkedin.com/in/ishwar-verma/</p>
+            [Number]<br>
+            [Linkdin profile]/</p>
         `,
         attachments: [
             {
