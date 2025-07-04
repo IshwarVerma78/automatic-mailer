@@ -43,7 +43,7 @@ app.post('/send', (req, res) => {
             <p>Best regards,<br>
             Ishwar Verma<br>
             [Number]<br>
-            [Linkdin profile]/</p>
+            [Linkdin profile]/</p>  
         `,
         attachments: [
             {
