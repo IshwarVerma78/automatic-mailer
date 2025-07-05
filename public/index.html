@@ -2,13 +2,42 @@
 <html>
 <head>
     <title>Send Job Application</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h2>Send Frontend Developer Job Application</h2>
-    <form action="/send" method="post">
-        <label for="email">HR Email:</label><br>
-        <input type="email" name="email" required><br><br>
-        <button type="submit">Send Email</button>
-    </form>
+    <div class="form-container">
+        <h2>Send Frontend Developer Job Application</h2>
+        <div id="message"></div>
+        <form action="/send" method="post">
+            <label for="salutation">Select Salutation:</label>
+            <select name="salutation" required>
+                <option value="Sir">Sir</option>
+                <option value="Ma'am">Ma'am</option>
+            </select>
+
+            <label for="email">HR Email:</label>
+            <input type="email" name="email" required>
+
+            <button type="submit">Send Email</button>
+        </form>
+    </div>
+
+    <script>
+    window.onload = () => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('success')) {
+            document.getElementById('message').innerHTML = `<p style='color:green;'>${params.get('success')}</p>`;
+        }
+        if (params.get('error')) {
+            document.getElementById('message').innerHTML = `<p style='color:red;'>${params.get('error')}</p>`;
+        }
+
+        // 🔥 Clean URL (remove ?success or ?error) without reloading
+        if (params.get('success') || params.get('error')) {
+            window.history.replaceState({}, document.title, "/");
+        }
+    }
+</script>
+
 </body>
 </html>
