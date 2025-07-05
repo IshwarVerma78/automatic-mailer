@@ -39,7 +39,7 @@ app.post('/send', async (req, res) => {
                 <p>Looking forward to your response.</p>
                 <p>Best regards,<br>
                 Ishwar Verma<br>
-                8168099190<br>
+                [Mobile Number]<br>
                 https://www.linkedin.com/in/ishwar-verma/</p>  
             `,
             attachments: [
