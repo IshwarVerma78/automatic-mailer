@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Logs</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">Mailer App</a>
+            <div class="nav-links">
+                <a href="/">Send Mail</a>
+                <a href="/logs">History</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="logs-container">
+        <h2>Email Logs</h2>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>To</th>
+                <th>Position</th>
+                <th>CV</th>
+                <th>Template</th>
+                <th>Status</th>
+                <th>Error Message</th>
+            </tr>
+            <% logs.forEach(log => { %>
+                <tr>
+                    <td><%= log.date %></td>
+                    <td><%= log.time %></td>
+                    <td><%= log.to.join(', ') %></td>
+                    <td><%= log.position %></td>
+                    <td><%= log.cv %></td>
+                    <td><%= log.template %></td>
+                    <td class="<%= log.status === 'success' ? 'success' : 'failed' %>">
+                        <%= log.status %>
+                    </td>
+                    <td><%= log.error_message || '-' %></td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <p>© 2025 Ishwar Verma. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
