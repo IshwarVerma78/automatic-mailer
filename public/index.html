@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Send Frontend Developer Job Application</h2>
+        <h2>Send Job Application</h2>
         <div id="message"></div>
 
         <form action="/send" method="post">
@@ -15,27 +15,34 @@
                 <option value="Sir">Sir</option>
                 <option value="Ma'am">Ma'am</option>
             </select>
-        
+
             <label for="position">Select Position:</label>
             <select name="position" required>
                 <option value="Frontend Developer">Frontend Developer</option>
                 <option value="Backend Developer">Backend Developer</option>
                 <option value="Full Stack Developer">Full Stack Developer</option>
             </select>
-        
+
+
             <label for="cv">Select CV File:</label>
             <select name="cv" required>
                 <option value="cv1.pdf">Frontend-CV</option>
                 <option value="cv2.pdf">Backend-CV</option>
                 <option value="cv3.pdf">Full Stack-CV</option>
             </select>
-        
+
+            <label for="template">Select Email Template:</label>
+            <select name="template" required>
+                <option value="frontend.html">Frontend Template</option>
+                <option value="backend.html">Backend Template</option>
+                <option value="fullstack.html">Full Stack Template</option>
+            </select>
+
             <label for="email">HR Emails (comma-separated):</label>
             <input type="text" name="email" placeholder="example1@gmail.com, example2@gmail.com" required>
-        
+
             <button type="submit">Send Email</button>
         </form>
-
 
     </div>
 

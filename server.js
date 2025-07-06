@@ -2,6 +2,7 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs/promises';
 
 dotenv.config();
 const app = express();
@@ -11,62 +12,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.post('/send', async (req, res) => {
-    const { email, salutation, position, cv } = req.body;
+    const { email, salutation, position, cv, template } = req.body;
 
     try {
+        // Process emails
         const emails = email.split(',')
             .map(e => e.trim())
             .filter(e => e.length > 0);
 
-        let subject = `Application for ${position} Role`;
-        let body = "";
+        // Read template file from /templates folder
+        let templateContent = await fs.readFile(path.join(__dirname, 'templates', template), 'utf-8');
 
-        if (position === "Frontend Developer") {
-            body = `
-                <p>Dear ${salutation},</p>
-                <p>I hope you're doing well.</p>
-                <p>I'm Ishwar Verma, a frontend specialist with expertise in React.js, JavaScript, Tailwind CSS, and crafting responsive UI designs.</p>
-                <p>I love building pixel-perfect, fast and interactive web interfaces. Please find my CV attached for your kind consideration.</p>
-                <p>Looking forward to connecting with you regarding frontend roles.</p>
-                <p>Best regards,<br>
-                Ishwar Verma<br>
-                [Mobile Number]<br>
-                https://www.linkedin.com/in/ishwar-verma/</p>
-            `;
-        } else if (position === "Backend Developer") {
-            body = `
-                <p>Dear ${salutation},</p>
-                <p>I hope you're doing well.</p>
-                <p>I'm Ishwar Verma, passionate about building robust backend systems with Node.js, Express, and secure API design.</p>
-                <p>I enjoy solving complex problems and ensuring scalable backend architectures. Please find my CV attached for your kind consideration.</p>
-                <p>Looking forward to opportunities in backend development.</p>
-                <p>Best regards,<br>
-                Ishwar Verma<br>
-                [Mobile Number]<br>
-                https://www.linkedin.com/in/ishwar-verma/</p>
-            `;
-        } else if (position === "Full Stack Developer") {
-            body = `
-                <p>Dear ${salutation},</p>
-                <p>I hope you're doing well.</p>
-                <p>I'm Ishwar Verma, a full stack developer skilled in building complete web applications from scratch using MERN stack.</p>
-                <p>I love working on both frontend aesthetics and backend logic to deliver seamless user experiences. Please find my CV attached for your kind consideration.</p>
-                <p>Looking forward to any suitable full stack roles in your esteemed organization.</p>
-                <p>Best regards,<br>
-                Ishwar Verma<br>
-                [Mobile Number]<br>
-                https://www.linkedin.com/in/ishwar-verma/</p>
-            `;
-        } else {
-            body = `
-                <p>Dear ${salutation},</p>
-                <p>This is a general application for ${position} role. Kindly find my CV attached.</p>
-                <p>Best regards,<br>
-                Ishwar Verma<br>
-                [Mobile Number]<br>
-                https://www.linkedin.com/in/ishwar-verma/</p>
-            `;
-        }
+        // Replace placeholder {{salutation}} and {{position}}
+        templateContent = templateContent
+            .replace(/{{salutation}}/g, salutation)
+            .replace(/{{position}}/g, position);
 
         let transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -79,12 +39,12 @@ app.post('/send', async (req, res) => {
         let mailOptions = {
             from: `"Ishwar Verma" <${process.env.EMAIL_USER}>`,
             to: emails,
-            subject,
-            html: body,
+            subject: `Application for ${position} Role`,
+            html: templateContent,
             attachments: [
                 {
                     filename: cv,
-                    path: path.join(__dirname, 'cv', cv)  // 🗂 Attach from /cv folder
+                    path: path.join(__dirname, 'cv', cv)
                 }
             ]
         };
