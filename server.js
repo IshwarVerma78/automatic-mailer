@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs/promises';
 import mongoose from 'mongoose';
+import EmailLog from './models/EmailLog.js';
 
 dotenv.config();
 const app = express();
@@ -27,18 +28,18 @@ mongoose.connect('mongodb://127.0.0.1:27017/jobmailer', {
 });
 
 // Mongoose schema
-const emailLogSchema = new mongoose.Schema({
-    date: String,
-    time: String,
-    to: [String],
-    position: String,
-    cv: String,
-    template: String,
-    status: String,
-    error_message: String
-}, { timestamps: true });
+// const emailLogSchema = new mongoose.Schema({
+//     date: String,
+//     time: String,
+//     to: [String],
+//     position: String,
+//     cv: String,
+//     template: String,
+//     status: String,
+//     error_message: String
+// }, { timestamps: true });
 
-const EmailLog = mongoose.model('EmailLog', emailLogSchema);
+// const EmailLog = mongoose.model('EmailLog', emailLogSchema);
 
 app.post('/send', async (req, res) => {
     const { email, salutation, position, cv, template } = req.body;
