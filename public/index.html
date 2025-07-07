@@ -1,173 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Send Job Application</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <nav>
-        <div class="nav-container">
-            <a href="/" class="logo">Mailer App</a>
-            <div class="nav-links">
-                <a href="/">Send Mail</a>
-                <a href="/logs">History</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="form-container">
-
-        <h2>Send Job Application</h2>
-        <div id="message"></div>
-
-        <form action="/send" method="post">
-            <label for="salutation">Select Salutation:</label>
-            <select name="salutation" required>
-                <option value="Sir">Sir</option>
-                <option value="Ma'am">Ma'am</option>
-            </select>
-
-            <label for="position">Select Position:</label>
-            <select name="position" required>
-                <option value="Frontend Developer">Frontend Developer</option>
-                <option value="Backend Developer">Backend Developer</option>
-                <option value="Full Stack Developer">Full Stack Developer</option>
-            </select>
-
-
-            <label for="cv">Select CV File:</label>
-            <select name="cv" required>
-                <option value="cv1.pdf">Frontend-CV</option>
-                <option value="cv2.pdf">Backend-CV</option>
-                <option value="cv3.pdf">Full Stack-CV</option>
-            </select>
-
-            <label for="template">Select Email Template:</label>
-            <select name="template" required>
-                <option value="frontend.html">Frontend Template</option>
-                <option value="backend.html">Backend Template</option>
-                <option value="fullstack.html">Full Stack Template</option>
-            </select>
-
-            <label for="email">HR Emails (comma-separated):</label>
-            <input type="text" name="email" placeholder="example1@gmail.com, example2@gmail.com" required>
-
-            <button type="submit">Send Email</button>
-        </form>
-        
-        
-    </div>
-    
-    <footer>
-        <div class="footer-container">
-            <p>© 2025 Ishwar Verma. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-    window.onload = () => {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('success')) {
-            document.getElementById('message').innerHTML = `<p style='color:green;'>${params.get('success')}</p>`;
-        }
-        if (params.get('error')) {
-            document.getElementById('message').innerHTML = `<p style='color:red;'>${params.get('error')}</p>`;
-        }
-
-        // 🔥 Clean URL (remove ?success or ?error) without reloading
-        if (params.get('success') || params.get('error')) {
-            window.history.replaceState({}, document.title, "/");
-        }
-    }
-</script>
-
-</body>
-</html>
-
- -->
-
- <!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Send Job Application</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <nav>
-        <div class="nav-container">
-            <a href="/" class="logo">Mailer App</a>
-            <div class="nav-links">
-                <a href="/">Send Mail</a>
-                <a href="/logs">History</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="form-container">
-        <h2>Send Job Application</h2>
-        <div id="message"></div>
-
-        <form action="/send" method="post">
-            <label for="salutation">Select Salutation:</label>
-            <select name="salutation" required>
-                <option value="Sir">Sir</option>
-                <option value="Ma'am">Ma'am</option>
-            </select>
-
-            <label for="position">Select Position:</label>
-            <select name="position" required>
-                <option value="Frontend Developer">Frontend Developer</option>
-                <option value="Backend Developer">Backend Developer</option>
-                <option value="Full Stack Developer">Full Stack Developer</option>
-            </select>
-
-            <label for="cv">Select CV File:</label>
-            <select name="cv" required>
-                <option value="cv1.pdf">Frontend-CV</option>
-                <option value="cv2.pdf">Backend-CV</option>
-                <option value="cv3.pdf">Full Stack-CV</option>
-            </select>
-
-            <label for="template">Select Email Template:</label>
-            <select name="template" required>
-                <option value="frontend.html">Frontend Template</option>
-                <option value="backend.html">Backend Template</option>
-                <option value="fullstack.html">Full Stack Template</option>
-            </select>
-
-            <label for="email">HR Emails (comma-separated):</label>
-            <input type="text" name="email" placeholder="example1@gmail.com, example2@gmail.com" required>
-
-            <button type="submit">Send Email</button>
-        </form>
-    </div>
-
-    <footer>
-        <div class="footer-container">
-            <p>© 2025 Ishwar Verma. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        window.onload = () => {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('success')) {
-                document.getElementById('message').innerHTML = `<p style='color:green;'>${params.get('success')}</p>`;
-            }
-            if (params.get('error')) {
-                document.getElementById('message').innerHTML = `<p style='color:red;'>${params.get('error')}</p>`;
-            }
-
-            if (params.get('success') || params.get('error')) {
-                window.history.replaceState({}, document.title, "/");
-            }
-        }
-    </script>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Send Job Application</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -229,26 +61,61 @@
         </div>
     </div>
 
+    <div class="loader-wrapper" id="loader">
+      <div class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+
     <footer>
         <div class="footer-container">
             <p>© 2025 Ishwar Verma. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <script>
-        window.onload = () => {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('success')) {
-                document.getElementById('message').innerHTML = `<p style='color:green;'>${params.get('success')}</p>`;
-            }
-            if (params.get('error')) {
-                document.getElementById('message').innerHTML = `<p style='color:red;'>${params.get('error')}</p>`;
-            }
-            if (params.get('success') || params.get('error')) {
-                window.history.replaceState({}, document.title, "/");
-            }
-        }
-    </script>
+
+<script>
+  const form = document.querySelector("form");
+  const loader = document.getElementById("loader");
+
+  form.addEventListener("submit", () => {
+    loader.style.display = "flex";
+  });
+
+  window.onload = () => {
+    loader.style.display = "none";
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success')) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: params.get('success'),
+        showConfirmButton: false,
+        timer: 9000,
+        timerProgressBar: true
+      });
+    }
+    if (params.get('error')) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'error',
+        title: params.get('error'),
+        showConfirmButton: false,
+        timer: 9000,
+        timerProgressBar: true
+      });
+    }
+    if (params.get('success') || params.get('error')) {
+      window.history.replaceState({}, document.title, "/");
+    }
+  }
+</script>
 </body>
 </html>
 

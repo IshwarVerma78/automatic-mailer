@@ -18,7 +18,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 // MongoDB connect
-mongoose.connect('mongodb://127.0.0.1:27017/jobmailer', {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -27,19 +27,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/jobmailer', {
     console.error("❌ MongoDB connection error:", err);
 });
 
-// Mongoose schema
-// const emailLogSchema = new mongoose.Schema({
-//     date: String,
-//     time: String,
-//     to: [String],
-//     position: String,
-//     cv: String,
-//     template: String,
-//     status: String,
-//     error_message: String
-// }, { timestamps: true });
-
-// const EmailLog = mongoose.model('EmailLog', emailLogSchema);
 
 app.post('/send', async (req, res) => {
     const { email, salutation, position, cv, template } = req.body;
